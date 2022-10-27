@@ -1,11 +1,5 @@
 /build/
 /dist/
-/.idea/ant.xml
-/.idea/Catrina.iml
-/.idea/codeStyles/codeStyleConfig.xml
-/.idea/intellij-javadocs-4.0.1.xml
-/.idea/misc.xml
-/.idea/modules.xml
+/.idea/
 /nbproject/private/private.properties
-/.idea/codeStyles/Project.xml
-/.idea/vcs.xml
+
