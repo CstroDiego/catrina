@@ -9,5 +9,6 @@ package mx.itson.catrina.enumeradores;
  * @author diego
  */
 public enum Moneda {
+    USD, MXN, EUR
 
 }

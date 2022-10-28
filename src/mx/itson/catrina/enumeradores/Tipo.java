@@ -9,5 +9,6 @@ package mx.itson.catrina.enumeradores;
  * @author diego
  */
 public enum Tipo {
+    DEPOSITO, RETIRO
 
 }
