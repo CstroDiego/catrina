@@ -4,6 +4,21 @@
  */
 package mx.itson.catrina.ui;
 
+import mx.itson.catrina.entidades.Cuenta;
+import mx.itson.catrina.entidades.Movimiento;
+import mx.itson.catrina.enumeradores.Tipo;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 /**
  * Clase principal de la aplicacion
  *
@@ -33,8 +48,8 @@ public class Main extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         btnSeleccionar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        lblDireccion = new javax.swing.JLabel();
+        lblProducto = new javax.swing.JLabel();
+        lblDomicilio = new javax.swing.JLabel();
         lblCiudad = new javax.swing.JLabel();
         lblCp = new javax.swing.JLabel();
         lblNombre = new javax.swing.JLabel();
@@ -107,39 +122,34 @@ public class Main extends javax.swing.JFrame {
         jLabel3.setOpaque(true);
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 810, 40));
 
-        jLabel4.setBackground(new java.awt.Color(255, 192, 0));
-        jLabel4.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel4.setText(" CUENTA CONTABLE\t");
-        jLabel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jLabel4.setOpaque(true);
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 100, 310, 20));
+        lblProducto.setBackground(new java.awt.Color(255, 192, 0));
+        lblProducto.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        lblProducto.setForeground(new java.awt.Color(0, 0, 0));
+        lblProducto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lblProducto.setOpaque(true);
+        jPanel1.add(lblProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 100, 310, 20));
 
-        lblDireccion.setBackground(new java.awt.Color(255, 255, 255));
-        lblDireccion.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        lblDireccion.setForeground(new java.awt.Color(0, 0, 0));
-        lblDireccion.setText(" Calle 1 avenida 2, colonia Centro ");
-        lblDireccion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.add(lblDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 320, 20));
+        lblDomicilio.setBackground(new java.awt.Color(255, 255, 255));
+        lblDomicilio.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        lblDomicilio.setForeground(new java.awt.Color(0, 0, 0));
+        lblDomicilio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.add(lblDomicilio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 320, 20));
 
         lblCiudad.setBackground(new java.awt.Color(255, 255, 255));
         lblCiudad.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         lblCiudad.setForeground(new java.awt.Color(0, 0, 0));
-        lblCiudad.setText(" Guaymas, Sonora");
         lblCiudad.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.add(lblCiudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 320, 20));
 
         lblCp.setBackground(new java.awt.Color(255, 255, 255));
         lblCp.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         lblCp.setForeground(new java.awt.Color(0, 0, 0));
-        lblCp.setText(" C.P. 85400\t");
         lblCp.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.add(lblCp, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 320, 20));
 
         lblNombre.setBackground(new java.awt.Color(255, 192, 0));
         lblNombre.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         lblNombre.setForeground(new java.awt.Color(0, 0, 0));
-        lblNombre.setText(" MARIO ABURTO\t");
         lblNombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         lblNombre.setOpaque(true);
         jPanel1.add(lblNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 320, 20));
@@ -147,7 +157,6 @@ public class Main extends javax.swing.JFrame {
         lblRfc.setBackground(new java.awt.Color(255, 255, 255));
         lblRfc.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         lblRfc.setForeground(new java.awt.Color(0, 0, 0));
-        lblRfc.setText(" RFC: ABLM9901153T5");
         lblRfc.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.add(lblRfc, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 320, 20));
 
@@ -176,16 +185,14 @@ public class Main extends javax.swing.JFrame {
         lblSaldoFinalPeriodo.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         lblSaldoFinalPeriodo.setForeground(new java.awt.Color(0, 0, 0));
         lblSaldoFinalPeriodo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblSaldoFinalPeriodo.setText(" $ 74,937.85 ");
         lblSaldoFinalPeriodo.setOpaque(true);
         lblSaldoFinalPeriodo.setPreferredSize(new java.awt.Dimension(806, 30));
-        jPanel1.add(lblSaldoFinalPeriodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 670, 120, -1));
+        jPanel1.add(lblSaldoFinalPeriodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 540, 120, -1));
 
         lblMoneda.setBackground(new java.awt.Color(255, 255, 255));
         lblMoneda.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         lblMoneda.setForeground(new java.awt.Color(0, 0, 0));
         lblMoneda.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblMoneda.setText("MXN ");
         lblMoneda.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.add(lblMoneda, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 160, 190, 20));
 
@@ -193,7 +200,6 @@ public class Main extends javax.swing.JFrame {
         lblCuenta.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         lblCuenta.setForeground(new java.awt.Color(0, 0, 0));
         lblCuenta.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblCuenta.setText("69740214082 ");
         lblCuenta.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.add(lblCuenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 120, 190, 20));
 
@@ -201,7 +207,6 @@ public class Main extends javax.swing.JFrame {
         lblClabe.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         lblClabe.setForeground(new java.awt.Color(0, 0, 0));
         lblClabe.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblClabe.setText("68241269740214000 ");
         lblClabe.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.add(lblClabe, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 140, 190, 20));
 
@@ -237,7 +242,6 @@ public class Main extends javax.swing.JFrame {
         lblSaldoFinal.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         lblSaldoFinal.setForeground(new java.awt.Color(0, 0, 0));
         lblSaldoFinal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblSaldoFinal.setText(" $ 74,937.85 ");
         lblSaldoFinal.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.add(lblSaldoFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 290, 150, 20));
 
@@ -245,7 +249,6 @@ public class Main extends javax.swing.JFrame {
         lblSaldoInicial.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         lblSaldoInicial.setForeground(new java.awt.Color(0, 0, 0));
         lblSaldoInicial.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblSaldoInicial.setText(" $ 20,000.00 ");
         lblSaldoInicial.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.add(lblSaldoInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 230, 150, 20));
 
@@ -253,7 +256,6 @@ public class Main extends javax.swing.JFrame {
         lblDepositos.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         lblDepositos.setForeground(new java.awt.Color(0, 0, 0));
         lblDepositos.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblDepositos.setText(" $ 97,400.00 ");
         lblDepositos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.add(lblDepositos, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 250, 150, 20));
 
@@ -261,7 +263,6 @@ public class Main extends javax.swing.JFrame {
         lblRetiros.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         lblRetiros.setForeground(new java.awt.Color(0, 0, 0));
         lblRetiros.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblRetiros.setText(" $ 42,462.15 ");
         lblRetiros.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.add(lblRetiros, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 270, 150, 20));
 
@@ -312,7 +313,7 @@ public class Main extends javax.swing.JFrame {
             tblMovimientos.getColumnModel().getColumn(4).setMaxWidth(100);
         }
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 810, 330));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 810, 200));
 
         jLabel27.setBackground(new java.awt.Color(255, 192, 0));
         jLabel27.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
@@ -329,7 +330,7 @@ public class Main extends javax.swing.JFrame {
         jLabel28.setText("SALDO FINAL DEL PERIODO");
         jLabel28.setOpaque(true);
         jLabel28.setPreferredSize(new java.awt.Dimension(806, 30));
-        jPanel1.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 670, 690, -1));
+        jPanel1.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 540, 690, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -339,7 +340,7 @@ public class Main extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -347,7 +348,108 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
-        // TODO add your handling code here:
+        String mes = btnMes.getSelectedItem().toString().toUpperCase(); //Obtiene el mes seleccionado y lo convierte a mayúsculas
+        try {
+            // TODO add your handling code here:
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setCurrentDirectory(new java.io.File(System.getProperty("user.home")));
+            if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+                File archivo = fileChooser.getSelectedFile();
+                byte archivoBytes[] = Files.readAllBytes(archivo.toPath());
+                String contenido = new String(archivoBytes, StandardCharsets.UTF_8);
+
+                Cuenta cuenta = new Cuenta().deserealizar(contenido);
+
+                lblNombre.setText(" " + cuenta.getCliente().getNombre());
+                lblRfc.setText(" " + cuenta.getCliente().getRfc());
+                lblDomicilio.setText(" " + cuenta.getCliente().getDomicilio());
+                lblCiudad.setText(" " + cuenta.getCliente().getCiudad());
+                lblCp.setText(" " + cuenta.getCliente().getCp());
+                lblProducto.setText(" " + cuenta.getProducto());
+                lblCuenta.setText(cuenta.getCuenta() + " ");
+                lblClabe.setText(cuenta.getClabe() + " ");
+                lblMoneda.setText(cuenta.getMoneda() + " ");
+
+                DateFormat dateFormat = new SimpleDateFormat("MMMM", new Locale("es", "MX")); //Obtiene el nombre del mes en español
+                DateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+
+                //calcular el saldo de los movimientos
+                double saldoInicial = 0; //saldo inicial del periodo seleccionado sumando los meses anteriores
+                double depositos = 0; //suma de los depositos
+                double retiros = 0; //suma de los retiros
+
+                for (Movimiento movimiento : cuenta.getMovimientos()) {
+                    if (dateFormat.format(movimiento.getFecha()).toUpperCase().equals(mes)) {
+                        if (movimiento.getTipo() == Tipo.DEPOSITO) {
+                            depositos += movimiento.getCantidad();
+                        } else {
+                            retiros += movimiento.getCantidad();
+                        }
+                    }
+                }
+
+                String mesesAnteriores[] = new String[12];
+                mesesAnteriores[0] = "ENERO";
+                mesesAnteriores[1] = "FEBRERO";
+                mesesAnteriores[2] = "MARZO";
+                mesesAnteriores[3] = "ABRIL";
+                mesesAnteriores[4] = "MAYO";
+                mesesAnteriores[5] = "JUNIO";
+                mesesAnteriores[6] = "JULIO";
+                mesesAnteriores[7] = "AGOSTO";
+                mesesAnteriores[8] = "SEPTIEMBRE";
+                mesesAnteriores[9] = "OCTUBRE";
+                mesesAnteriores[10] = "NOVIEMBRE";
+                mesesAnteriores[11] = "DICIEMBRE";
+
+                for (int i = 0; i < mesesAnteriores.length; i++) {
+                    if (mesesAnteriores[i].equals(mes)) {
+                        for (int j = 0; j < i; j++) {
+                            for (Movimiento movimiento1 : cuenta.getMovimientos()) {
+                                if (dateFormat.format(movimiento1.getFecha()).toUpperCase().equals(mesesAnteriores[j])) {
+                                    if (movimiento1.getTipo() == Tipo.DEPOSITO) {
+                                        saldoInicial += movimiento1.getCantidad();
+                                    } else {
+                                        saldoInicial -= movimiento1.getCantidad();
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+                }
+
+                DecimalFormat df = new DecimalFormat("#.00");
+                lblSaldoInicial.setText(" $ " + df.format(saldoInicial));
+                lblDepositos.setText(" $ " + df.format(depositos));
+                lblRetiros.setText(" $ " + df.format(retiros));
+                lblSaldoFinal.setText(" $ " + df.format(saldoInicial + depositos - retiros));
+
+                DefaultTableModel model = (DefaultTableModel) tblMovimientos.getModel();
+                model.setRowCount(0);
+                for (Movimiento movimiento : cuenta.getMovimientos()) {
+                    if (dateFormat.format(movimiento.getFecha()).toUpperCase().equals(mes)) {
+                        if (movimiento.getTipo() == Tipo.DEPOSITO) {
+                            model.addRow(new Object[]{
+                                formato.format(movimiento.getFecha()),
+                                movimiento.getDescripcion(),
+                                df.format(movimiento.getCantidad()),
+                                ""});
+                        } else {
+                            model.addRow(new Object[]{
+                                formato.format(movimiento.getFecha()),
+                                movimiento.getDescripcion(),
+                                "",
+                                df.format(movimiento.getCantidad())});
+                        }
+                    }
+                }
+                lblSaldoFinalPeriodo.setText(" $ " + df.format(saldoInicial + depositos - retiros) + " ");
+            }
+        } catch (IOException ex) {
+            System.out.println("Error al leer el archivo");
+        }
+
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 
     /**
@@ -357,7 +459,7 @@ public class Main extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -402,7 +504,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCiudad;
@@ -410,9 +511,10 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel lblCp;
     private javax.swing.JLabel lblCuenta;
     private javax.swing.JLabel lblDepositos;
-    private javax.swing.JLabel lblDireccion;
+    private javax.swing.JLabel lblDomicilio;
     private javax.swing.JLabel lblMoneda;
     private javax.swing.JLabel lblNombre;
+    private javax.swing.JLabel lblProducto;
     private javax.swing.JLabel lblRetiros;
     private javax.swing.JLabel lblRfc;
     private javax.swing.JLabel lblSaldoFinal;

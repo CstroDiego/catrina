@@ -3,12 +3,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Enum.java to edit this template
  */
 package mx.itson.catrina.enumeradores;
-
+import com.google.gson.annotations.SerializedName;
 /**
  *
  * @author diego
  */
 public enum Tipo {
-    DEPOSITO, RETIRO
+    @SerializedName("1")
+    DEPOSITO,
+
+    @SerializedName("2")
+    RETIRO
 
 }

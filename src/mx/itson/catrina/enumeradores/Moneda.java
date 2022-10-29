@@ -4,11 +4,17 @@
  */
 package mx.itson.catrina.enumeradores;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
- *
  * @author diego
  */
 public enum Moneda {
-    USD, MXN, EUR
+    @SerializedName("1")
+    USD,
+    @SerializedName("2")
+    MXN,
+    @SerializedName("3")
+    EUR
 
 }
