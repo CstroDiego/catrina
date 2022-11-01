@@ -1,17 +1,23 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Enum.java to edit this template
- */
 package mx.itson.catrina.enumeradores;
+
 import com.google.gson.annotations.SerializedName;
+
 /**
+ * Contiene los valores de Tipo.
  *
- * @author diego
+ * @author Diego Castro Arce
  */
 public enum Tipo {
+
+    /**
+     * Tipo de movimiento de ingreso.
+     */
     @SerializedName("1")
     DEPOSITO,
 
+    /**
+     * Tipo de movimiento de egreso.
+     */
     @SerializedName("2")
     RETIRO
 

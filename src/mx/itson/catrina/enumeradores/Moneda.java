@@ -1,19 +1,29 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Enum.java to edit this template
- */
 package mx.itson.catrina.enumeradores;
 
 import com.google.gson.annotations.SerializedName;
 
 /**
- * @author diego
+ * Contiene los valores de Moneda.
+ *
+ * @author Diego Castro Arce
  */
 public enum Moneda {
+
+    /**
+     * Moneda de tipo dólares.
+     */
     @SerializedName("1")
     USD,
+
+    /**
+     * Moneda de tipo pesos mexicanos.
+     */
     @SerializedName("2")
     MXN,
+
+    /**
+     * Moneda de tipo euros.
+     */
     @SerializedName("3")
     EUR
 
