@@ -412,7 +412,7 @@ public class Main extends javax.swing.JFrame {
                 }
             }
         } catch (IOException ex) {
-            System.out.println("Error al leer el archivo");
+            System.out.println("Error al leer el archivo: " + ex.getMessage());
         }
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 
